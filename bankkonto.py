@@ -48,7 +48,8 @@ class Konto():
             self.__kontostand = self.__kontostand + betrag
             print("Sie haben", betrag, "€ eingezahlt")
             print("Ihr neuer Kontostand ist:", str(self.getKontostand()))
-            self.__transaktionen.append(("Einzahlung", betrag))
+            jetzt = datetime.datetime.now().strftime("%d.%m %H:%M")
+            self.__transaktionen.append(["einzahlung", betrag, "Um ", jetzt])
         
     def auszahlen(self, betrag):
         print("Ihr jetziger Kontostand beträgt:", str(self.getKontostand()))
@@ -62,14 +63,15 @@ class Konto():
                 print("Der eingegebene Wert ist größer als ihr Kontostand oder sie haben ihr Limit erreicht")
             else:
                 self.__kontostand = self.__kontostand - betrag
-                self.__transaktionen.append(("Auszahlung", betrag))
+                jetzt = datetime.datetime.now().strftime("%d.%m %H:%M")
+                self.__transaktionen.append(["Auszahlung", betrag, "Um ", jetzt])
                 print("Es wurden ", betrag, " € ausgezahlt!")
                 print("Ihr neuer Kontostand ist:", str(self.getKontostand()))
 
     def getKontoauszug(self):
           print("----- Kontoauszug -----")
           for transaktion in self.__transaktionen:
-               print("- " + str(transaktion[0]) + ": " + str(transaktion[1]) + " EUR")
+               print("- " + str(transaktion[0]) + ": " + str(transaktion[1]) + " EUR " + str(transaktion[2]) + str(transaktion[3]))
           print("-----------------------")
         
     def setPin(self, neuerpin):
