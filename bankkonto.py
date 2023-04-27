@@ -145,7 +145,7 @@ while(True):
         if int(Kontonummer) == int(kontoliste[zaehler].gibKontonummer()):
             print("Das Konto existiert:")
         zaehler = zaehler + 1 
- 
+ #User interface
  #Eingabe pin
 pin = input("Bitte geben Sie Ihren Pin ein: ")
 
