@@ -3,13 +3,14 @@ import datetime
 
 # Klassen
 class Konto():
-    def __init__(self, kontostand, pin, kontonummer, kontoart, inhaber):
+    def __init__(self, kontostand, pin, kontonummer, kontoart, vorname, nachname):
         self.__kontostand = kontostand
         self.kontoAuszug = "hallo, ich bin dein Kontoauszug"
         self.__pin = pin
         self.__kontonummer = kontonummer
         self.__kontoart = kontoart
-        self.__inhaber = inhaber
+        self.__vorname = vorname
+        self.__nachname = nachname
         self.__dispo = 500
         self.__limit = 0
         self.__dispolimit = 0
@@ -17,18 +18,34 @@ class Konto():
         self.__transaktionen = []
 
     class Dispo():
-        def __init__(self, kontostand, pin, kontonummer, kontoart, inhaber):
+        def __init__(self, kontostand, pin, kontonummer, kontoart, vorname, nachname):
             self.__kontostand = kontostand
             self.kontoAuszug = "hallo, ich bin dein Kontoauszug"
             self.__pin = pin
             self.__kontonummer = kontonummer
             self.__kontoart = kontoart
-            self.__inhaber = inhaber
+            self.__vorname = vorname
+            self.__nachname = nachname
             self.__dispo = 500
             self.__limit = 0
             self.__dispolimit = 0
             self.__auszug = []
             self.__transaktionen = []
+    class Sparbuch():
+        def __init__(self, kontostand, pin, kontonummer, kontoart, vorname, nachname, zinssatz):
+            self.__kontostand = kontostand
+            self.kontoAuszug = "hallo, ich bin dein Kontoauszug"
+            self.__pin = pin
+            self.__kontonummer = kontonummer
+            self.__kontoart = kontoart
+            self.__vorname = vorname
+            self.__nachname = nachname
+            self.__dispo = 500
+            self.__limit = 0
+            self.__dispolimit = 0
+            self.__auszug = []
+            self.__transaktionen = []
+            self.__zinssatz = 3.5
 
 
 #Funktionen
@@ -94,9 +111,9 @@ class Konto():
 
 
 #Probe Konten
-Konto1 = Konto(1000,1234,1234567, "Giro", "ich")
-Konto2 = Konto(12,1001,737828, "Giro", "TaNiHA")
-Konto3 = Konto(12000,1003,137828, "Giro", "Tay")
+Konto1 = Konto(1000,1234,1234567, "Giro", "ich", "Lange")
+Konto2 = Konto(12,1001,737828, "Giro", "TaNiHA", "Dachner")
+Konto3 = Konto(12000,1003,137828, "Giro", "Tay", "Herbst")
 kontoliste = [Konto1,Konto2]
 zaehler = 0
 zaehlerKonto = 3
@@ -129,7 +146,9 @@ while(True):
         KontoArt = Dispo
 
 
-    Inhaber = input("Bitte geben sie ihren Vornamen ein")
+    vorname = input("Bitte geben Sie Ihren Vornamen ein")
+    
+    nachname = input("Bitte geben Sie Ihren Nachnamen ein")
 
     Konto = KontoArt(Kontostand,Pin,Kontonummer,KontoArt,Inhaber)
 
