@@ -1,7 +1,7 @@
 import random
 import datetime
 
-# Klassen
+# Parent class
 class Konto():
     def __init__(self, kontostand, pin, kontonummer, kontoart, vorname, nachname):
         self.__kontostand = kontostand
@@ -16,36 +16,94 @@ class Konto():
         self.__dispolimit = 0
         self.__auszug = []
         self.__transaktionen = []
+    
+    #Funktionen der Parent class
 
-    class Dispo():
-        def __init__(self, kontostand, pin, kontonummer, kontoart, vorname, nachname):
-            self.__kontostand = kontostand
-            self.kontoAuszug = "hallo, ich bin dein Kontoauszug"
-            self.__pin = pin
-            self.__kontonummer = kontonummer
-            self.__kontoart = kontoart
-            self.__vorname = vorname
-            self.__nachname = nachname
-            self.__dispo = 500
-            self.__limit = 0
-            self.__dispolimit = 0
-            self.__auszug = []
-            self.__transaktionen = []
-    class Sparbuch():
-        def __init__(self, kontostand, pin, kontonummer, kontoart, vorname, nachname, zinssatz):
-            self.__kontostand = kontostand
-            self.kontoAuszug = "hallo, ich bin dein Kontoauszug"
-            self.__pin = pin
-            self.__kontonummer = kontonummer
-            self.__kontoart = kontoart
-            self.__vorname = vorname
-            self.__nachname = nachname
-            self.__dispo = 500
-            self.__limit = 0
-            self.__dispolimit = 0
-            self.__auszug = []
-            self.__transaktionen = []
-            self.__zinssatz = 3.5
+    def überweisen(Konto, betrag, Konto2):
+        print("Ihr jetziger Kontostand beträgt:", str(Konto.getKontostand()))
+        Konto2.einzahlen(betrag)
+        Konto.auszahlen(betrag)
+        print("Sie haben", betrag, "€ überwiesen")
+        print("Ihr neuer Kontostand ist:", str(Konto.getKontostand()))
+
+    def einzahlen(self, betrag):
+        if betrag < 0:
+            print("Der Betrag darf kein Minus enthalten")
+        else:
+            pass
+            print("Ihr jetziger Kontostand beträgt:", str(self.getKontostand()))
+            self.__kontostand = self.__kontostand + betrag
+            print("Sie haben", betrag, "€ eingezahlt")
+            print("Ihr neuer Kontostand ist:", str(self.getKontostand()))
+            jetzt = datetime.datetime.now().strftime("%d.%m %H:%M")
+            self.__transaktionen.append(["einzahlung", betrag, "Um ", jetzt])
+        
+    def auszahlen(self, betrag):
+        print("Ihr jetziger Kontostand beträgt:", str(self.getKontostand()))
+        self.__limit = self.__limit + betrag
+        if betrag < 0:
+            print("Der Betrag darf kein Minus enthalten")
+        else:
+            pass
+            Wert = self.__kontostand - betrag
+            if Wert < 0 and self.__limit > 999:
+                print("Der eingegebene Wert ist größer als ihr Kontostand oder sie haben ihr Limit erreicht")
+            else:
+                self.__kontostand = self.__kontostand - betrag
+                jetzt = datetime.datetime.now().strftime("%d.%m %H:%M")
+                self.__transaktionen.append(["Auszahlung", betrag, "Um ", jetzt])
+                print("Es wurden ", betrag, " € ausgezahlt!")
+                print("Ihr neuer Kontostand ist:", str(self.getKontostand()))
+
+    def getKontoauszug(self):
+          print("----- Kontoauszug -----")
+          for transaktion in self.__transaktionen:
+               print("- " + str(transaktion[0]) + ": " + str(transaktion[1]) + " EUR " + str(transaktion[2]) + str(transaktion[3]))
+          print("-----------------------")
+        
+    def setPin(self, neuerpin):
+        self.__pin = neuerpin
+       
+    def getPin(self):
+        return(self.__pin)
+         
+    def setKontostand(self, neuer_Kontostand):
+        self.__kontostand = neuer_Kontostand
+        
+    def getKontostand(self):
+        return self.__kontostand
+
+    def setKontonummer(self, Kontonummer):
+        self.__kontonummer = Kontonummer
+        
+    def getKontonummer(self):
+        return self.__kontonummer
+
+#Child classes
+class Giro(Konto):
+    def __init__(self, kontostand, pin, kontonummer, kontoart, vorname, nachname):
+        #Callt das innit der Konto Klasse
+        super().__init__(kontostand,pin,kontonummer,kontoart,vorname,nachname)
+
+class Dispo():
+    def __init__(self, kontostand, pin, kontonummer, kontoart, vorname, nachname):
+        #Callt das innit der Konto Klasse
+        super().__init__(kontostand,pin,kontonummer,kontoart,vorname,nachname)
+        self.__dispolimit = 0
+        self.__dispo = 500
+        self.__limit = 0
+        self.__dispolimit = 0
+
+class Sparbuch():
+    def __init__(self, kontostand, pin, kontonummer, kontoart, vorname, nachname):
+        #Callt das innit der Konto Klasse
+        super().__init__(kontostand,pin,kontonummer,kontoart,vorname,nachname)
+        self.__dispo = 500
+        self.__limit = 0
+        self.__dispolimit = 0
+        self.__auszug = []
+        self.__transaktionen = []
+        self.__zinssatz = 3.5
 
 
 #Funktionen
@@ -96,7 +154,7 @@ class Konto():
        
     def getPin(self):
         return(self.__pin)
-        
+         
     def setKontostand(self, neuer_Kontostand):
         self.__kontostand = neuer_Kontostand
         
@@ -135,47 +193,65 @@ while(True):
             pass
         else:
             break
-    Konto = "Konto" + str((random.randint(1,1000)))
+    
     Kontostand = 0
     Pin = int(input("geben sie einen pin mit 4 Zahlen ein, wir empfehlen keine *code muster* zu verwenden"))
     Kontonummer = (random.randint(1000,9999))
-    KontoB = int(input("Bite wählen sie zwischen(1) GiroKonto(2) DispoKonto"))
+    KontoB = int(input("Bite wählen sie zwischen GiroKonto(1) DispoKonto(2) Sparbuch(3)"))
+
+    KontoZahl = "Konto" + str((random.randint(1,1000)))
+    print(KontoZahl)
     if KontoB == 1:
-        KontoArt = GiroKonto
+        KontoArt = Giro
+
     if KontoB ==2:
         KontoArt = Dispo
 
+    if KontoB ==3:
+        KontoArt = Sparbuch
 
     vorname = input("Bitte geben Sie Ihren Vornamen ein")
-    
+    zinssatz= 3.5
     nachname = input("Bitte geben Sie Ihren Nachnamen ein")
 
-    Konto = KontoArt(Kontostand,Pin,Kontonummer,KontoArt,Inhaber)
+    if KontoB == 1:
+        print(KontoZahl)
+        KontoZahl = KontoArt(Kontostand,Pin,Kontonummer,KontoArt,nachname,vorname)
+        print("Wilkommen bei Tammo inc, Ihre Kontonummer ist", Kontonummer, " Und sie sind", "Ihr Passwort lautet", Pin)
 
+    if KontoB == 2:
+        KontoZahl = KontoArt(Kontostand,Pin,Kontonummer,KontoArt,nachname,vorname)
+        print("Wilkommen bei Tammo inc, Ihre Kontonummer ist", Kontonummer, " Und sie sind", KontoZahl, "Ihr Passwort lautet", Pin)
+    
+    if KontoB ==3:
+        KontoZahl = KontoArt(Kontostand,Pin,Kontonummer,KontoArt,nachname,vorname,zinssatz)
+        print("Wilkommen bei Tammo inc, Ihre Kontonummer ist", Kontonummer, " Und sie sind", KontoZahl, "Ihr Passwort lautet", Pin)
+    
     kontoliste = [Konto1,Konto2,Konto3,]
-    
-    #Eingabe der Kontonummer
-    
-    Kontonummer = input("Bitte geben Sie ihre kontonummer ein: ")
-    #prüfe, ob das KOnto existiert
+
+    #prüfe, ob das Konto existiert
     zaehler = 0
     
-    while zaehler < len(kontoliste):
-        if int(Kontonummer) == int(kontoliste[zaehler].gibKontonummer()):
-            print("Das Konto existiert:")
-        zaehler = zaehler + 1 
- #User interface
+
  #Eingabe pin
 pin = input("Bitte geben Sie Ihren Pin ein: ")
-
-if int(pin) == int(kontoliste[zaehler +1].getPin()):
-    
+login = False
+for x in kontoliste:
+    if int(pin) == int(x.getPin()):
+        login = True
+        
+if(login):
     print("Die Anmeldung war erfolgreich")
-
 else:
     print("Du Hurensohn!")
 
+#User interface
 #Test Befehle
 Konto1.einzahlen(500)
 Konto1.auszahlen(200)
 Konto1.getKontoauszug()
+#    while zaehler < len(kontoliste):
+#        if int(Kontonummer) == int(kontoliste[zaehler].getKontonummer()):
+#            print("Das Konto existiert:")
+#        zaehler = zaehler + 1 
+ 
