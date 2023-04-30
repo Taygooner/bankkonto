@@ -1,6 +1,9 @@
 import random
 import datetime
 
+def vdir(obj):
+    return [x for x in dir(obj) if not x.startswith('__')]
+
 # Parent class
 class Konto():
     def __init__(self, kontostand, pin, kontonummer, kontoart, vorname, nachname):
@@ -172,9 +175,9 @@ class Sparbuch():
 Konto1 = Konto(1000,1234,1234567, "Giro", "ich", "Lange")
 Konto2 = Konto(12,1001,737828, "Giro", "TaNiHA", "Dachner")
 Konto3 = Konto(12000,1003,137828, "Giro", "Tay", "Herbst")
-kontoliste = [Konto1,Konto2]
+kontoliste = [Konto1,Konto2,Konto3]
 zaehler = 0
-zaehlerKonto = 3
+zaehlerKonto = 2
 
 
 #Anmeldung und Kontoerstellung
@@ -236,22 +239,23 @@ while(True):
  #Eingabe pin
 pin = input("Bitte geben Sie Ihren Pin ein: ")
 login = False
+currentKonto = None
 for x in kontoliste:
     if int(pin) == int(x.getPin()):
         login = True
+        currentKonto = x
         
 if(login):
     print("Die Anmeldung war erfolgreich")
+    #Test Befehle
+    Konto1.einzahlen(500)
+    Konto1.auszahlen(200)
+    Konto1.getKontoauszug()
+
+    #User interface
+    print(vdir(currentKonto))
+
+ 
 else:
     print("Du Hurensohn!")
-
-#User interface
-#Test Befehle
-Konto1.einzahlen(500)
-Konto1.auszahlen(200)
-Konto1.getKontoauszug()
-#    while zaehler < len(kontoliste):
-#        if int(Kontonummer) == int(kontoliste[zaehler].getKontonummer()):
-#            print("Das Konto existiert:")
-#        zaehler = zaehler + 1 
- 
+    
