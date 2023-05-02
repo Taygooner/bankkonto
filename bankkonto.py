@@ -284,7 +284,7 @@ if(login):
             else:
                 break
         if antwortEingabe == 5:
-            x.getKontostand()
+            print("Ihr Kontostand ist: ",x.getKontostand())
             antwort2 = input("Wollen sie noch eine weitere Aktion ausführen? (j/n): ")
             if antwort2 == "j":
                 pass
