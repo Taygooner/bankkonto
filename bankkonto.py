@@ -198,9 +198,9 @@ while(True):
             break
     
     Kontostand = 0
-    Pin = int(input("geben sie einen pin mit 4 Zahlen ein, wir empfehlen keine *code muster* zu verwenden"))
+    Pin = int(input("geben sie einen pin mit 4 Zahlen ein, wir empfehlen keine *code muster* zu verwenden: "))
     Kontonummer = (random.randint(1000,9999))
-    KontoB = int(input("Bite wählen sie zwischen GiroKonto(1) DispoKonto(2) Sparbuch(3)"))
+    KontoB = int(input("Bite wählen sie zwischen GiroKonto(1) DispoKonto(2) Sparbuch(3): "))
 
     KontoZahl = "Konto" + str((random.randint(1,1000)))
     print(KontoZahl)
@@ -213,31 +213,31 @@ while(True):
     if KontoB ==3:
         KontoArt = Sparbuch
 
-    vorname = input("Bitte geben Sie Ihren Vornamen ein")
+    vorname = input("Bitte geben Sie Ihren Vornamen ein: ")
     zinssatz= 3.5
-    nachname = input("Bitte geben Sie Ihren Nachnamen ein")
+    nachname = input("Bitte geben Sie Ihren Nachnamen ein: ")
 
     if KontoB == 1:
         print(KontoZahl)
         KontoZahl = KontoArt(Kontostand,Pin,Kontonummer,KontoArt,nachname,vorname)
         print("Wilkommen bei Tammo inc, Ihre Kontonummer ist", Kontonummer, " Und sie sind", "Ihr Passwort lautet", Pin)
-
+        kontoliste.append(KontoZahl) # Fügt den Kontonamen zur Kontoliste hinzu
     if KontoB == 2:
         KontoZahl = KontoArt(Kontostand,Pin,Kontonummer,KontoArt,nachname,vorname)
         print("Wilkommen bei Tammo inc, Ihre Kontonummer ist", Kontonummer, " Und sie sind", KontoZahl, "Ihr Passwort lautet", Pin)
-    
+        kontoliste.append(KontoZahl) # Fügt den Kontonamen zur Kontoliste hinzu
+
     if KontoB ==3:
         KontoZahl = KontoArt(Kontostand,Pin,Kontonummer,KontoArt,nachname,vorname,zinssatz)
         print("Wilkommen bei Tammo inc, Ihre Kontonummer ist", Kontonummer, " Und sie sind", KontoZahl, "Ihr Passwort lautet", Pin)
-    
-    kontoliste = [Konto1,Konto2,Konto3,]
+        kontoliste.append(KontoZahl) # Fügt den Kontonamen zur Kontoliste hinzu
 
-    #prüfe, ob das Konto existiert
-    zaehler = 0
     
 
  #Eingabe pin
 pin = input("Bitte geben Sie Ihren Pin ein: ")
+
+#prüfe, ob das Konto existiert
 login = False
 currentKonto = None
 for x in kontoliste:
@@ -253,8 +253,25 @@ if(login):
     Konto1.getKontoauszug()
 
     #User interface
-    print(vdir(currentKonto))
+    print("Welche option möchten sie ausführen? \n""Geld einzahlen (1) \n""Geld auszahlen (2) \n""Geld überweisen (3) \n""Kontoauszug ausgeben (4) \n""Kontostand abrufen (5) \n""Kontonummer ausgeben (6) \n""Abmelden (7)")
+    antwortEingabe = input("Bitte wählen sie eine option aus: ")
+    if antwortEingabe == 1:
+        x.einzahlen()
 
+    if antwortEingabe == 2:
+        x.auszahlen()
+    if antwortEingabe == 3:
+        x.überweisen()
+    if antwortEingabe == 4:
+        x.getKontoauszug
+    if antwortEingabe == 5:
+        x.getKontostand
+    if antwortEingabe == 6:
+        x.getKontonummer
+    if antwortEingabe == 7:
+        pass
+    
+    
  
 else:
     print("Du Hurensohn!")
