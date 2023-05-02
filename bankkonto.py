@@ -253,24 +253,52 @@ if(login):
     Konto1.getKontoauszug()
 
     #User interface
-    print("Welche option möchten sie ausführen? \n""Geld einzahlen (1) \n""Geld auszahlen (2) \n""Geld überweisen (3) \n""Kontoauszug ausgeben (4) \n""Kontostand abrufen (5) \n""Kontonummer ausgeben (6) \n""Abmelden (7)")
-    antwortEingabe = input("Bitte wählen sie eine option aus: ")
-    if antwortEingabe == 1:
-        x.einzahlen()
-
-    if antwortEingabe == 2:
-        x.auszahlen()
-    if antwortEingabe == 3:
-        x.überweisen()
-    if antwortEingabe == 4:
-        x.getKontoauszug
-    if antwortEingabe == 5:
-        x.getKontostand
-    if antwortEingabe == 6:
-        x.getKontonummer
-    if antwortEingabe == 7:
-        pass
-    
+    while(True):
+        print("Welche option möchten sie ausführen? \n""Geld einzahlen (1) \n""Geld auszahlen (2) \n""Geld überweisen (3) \n""Kontoauszug ausgeben (4) \n""Kontostand abrufen (5) \n""Kontonummer ausgeben (6) \n""Abmelden (7)")
+        antwortEingabe = int(input("Bitte wählen sie eine option aus: "))
+        if antwortEingabe == 1:
+            b = int(input("Bitte geben sie ihren gewünschten wert ein: "))
+            x.einzahlen(b)
+            antwort2 = input("Wollen sie noch eine weitere Aktion ausführen? (j/n): ")
+        if antwortEingabe == 2:
+            b = int(input("Bitte geben sie ihren gewünschten wert ein: "))
+            x.auszahlen(b)
+            antwort2 = input("Wollen sie noch eine weitere Aktion ausführen? (j/n): ")
+            if antwort2 == "j":
+                pass
+            else:
+                break
+        if antwortEingabe == 3:
+            b = input("Bitte geben sie das Konto des Empfängers an: ")
+            x.überweisen(b)
+            antwort2 = input("Wollen sie noch eine weitere Aktion ausführen? (j/n): ")
+            if antwort2 == "j":
+                pass
+            else:
+                break
+        if antwortEingabe == 4:
+            x.getKontoauszug()
+            antwort2 = input("Wollen sie noch eine weitere Aktion ausführen? (j/n): ")
+            if antwort2 == "j":
+                pass
+            else:
+                break
+        if antwortEingabe == 5:
+            x.getKontostand()
+            antwort2 = input("Wollen sie noch eine weitere Aktion ausführen? (j/n): ")
+            if antwort2 == "j":
+                pass
+            else:
+                break
+        if antwortEingabe == 6:
+            x.getKontonummer()
+            antwort2 = input("Wollen sie noch eine weitere Aktion ausführen? (j/n): ")
+            if antwort2 == "j":
+                pass
+            else:
+                break
+        if antwortEingabe == 7:
+            break
     
  
 else:
